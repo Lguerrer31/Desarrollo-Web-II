@@ -1,0 +1,10 @@
+<div>
+    <div class="row">
+        <div class="col-12 m-3">
+            <h5>Todos los equipos: </h5>
+        </div>
+    </div>
+    <div *ngFor="let team of teams.teams" class="teams">
+        <app-team-card [team]="team"></app-team-card>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title text-center">{{team.strTeam}}</h5>
+    <a [routerLink]="['/team-profile', team.idTeam]" class="btn btn-warning button-profile">Ver perfil del equipo</a>
+  </div>
+  <img src="{{ team.strTeamBadge }}" class="card-img-top" alt="...">
+</div>

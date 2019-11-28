@@ -1,0 +1,164 @@
+<div class="card team p-3" style="width: 100%;">
+  <div class="row">
+    <div class="col-md-2 image">
+      <img src="{{ team.strTeamBadge }}" class="card-img" alt="...">
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <h3 class="card-title">{{team.strTeam}}</h3>
+        <h5><span class="badge badge-secondary badge-warning text-white p-2">Estadio: {{team.strStadium}}</span></h5>
+        <p class="card-text text-muted font-weight-bolder">Redes sociales:</p>
+        <div class="btn-group mr-2" role="group">
+          <button type="button" class="btn">
+            <a href="{{team.strWebsite}}">
+              Web Site
+            </a>
+          </button>
+          <button type="button" class="btn">
+            <a href="{{team.strFacebook}}">Facebook </a>
+          </button>
+          <button type="button" class="btn">
+            <a href="{{team.strTwitter}}">Twitter</a>
+          </button>
+          <button type="button" class="btn">
+            <a href="{{team.strInstagram}}">Instagram</a>
+          </button>
+          <button type="button" class="btn">
+            <a href="{{team.strYoutube}}">Youtube</a>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 image">
+      <img src="{{ team.strTeamLogo }}" class="card-img" alt="...">
+    </div>
+    <div class="col-md-2 image">
+      <img src="{{ team.strTeamJersey }}" class="card-img" alt="...">
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <p class="card-text text-justify">{{team.strDescriptionEN}}</p>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-8">
+      <h5 class="text-warning">Estadio: </h5>
+      <p class="card-text text-justify">{{team.strStadiumDescription}}</p>
+    </div>
+    <div class="col-md-4 image">
+      <img src="{{ team.strStadiumThumb }}" class="card-img" alt="...">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text-warning my-3">Jugadores del plantel: </h5>
+      <ul class="list-group" *ngFor="let player of players.player" style="width: 50%; display: inline-block;">
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-2">
+              <img src="{{ player.strThumb }}" class="rounded-circle avatar" alt="...">
+            </div>
+            <div class="col-md-10">
+              <h3 class="card-title">{{player.strPlayer}}</h3>
+              <p>
+                <a class="btn btn-warning" data-toggle="collapse" href="{{'#collapse'+ player.idPlayer}}" role="button"
+                  aria-expanded="false" attr.aria-controls="{{'collapse'+player.idPlayer}}">
+                  Ver perfil del jugador
+                </a>
+              </p>
+              <div class="collapse" id="collapse{{player.idPlayer}}">
+                <div class="card-body">
+                  <h5 class="card-title">Posición: {{player.strPosition}} </h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Dorsal {{player.strNumber}}</h6>
+                  <h6 class="card-text text-justify"><span class="font-weight-bolder">Descripción:</span>
+                    {{player.strDescriptionEN}}</h6>
+                  <p class="card-text"><span class="font-weight-bolder">Nacionalidad:</span> {{player.strNationality}}
+                  </p>
+                  <p class="card-text"><span class="font-weight-bolder">Fecha de nacimiento: </span>{{player.dateBorn}}
+                  </p>
+                  <p class="card-text"><span class="font-weight-bolder">Altura: </span>{{player.strHeight}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text-warning my-3">Últimos 5 eventos: </h5>
+      <div class="card" *ngFor="let last of last.results" style="width: 20%; display: inline-block;">
+        <p class="text-center text-warning mt-2">{{last.strEvent}}</p>
+        <p class="text-center">{{last.intHomeScore}} - {{last.intAwayScore}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text-warning my-3">Proximos 5 eventos: </h5>
+      <div class="card" *ngFor="let next of next.events" style="width: 20%; display: inline-block;">
+        <p class="text-center text-warning mt-2">{{next.strEvent}}</p>
+        <p class="text-center">{{next.dateEvent}} - {{next.strTime}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text-warning my-3">Tabla de posiciones: </h5>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Partidos jugados</th>
+            <th scope="col">Ganados</th>
+            <th scope="col">Empatados</th>
+            <th scope="col">Perdidos</th>
+            <th scope="col">Goles a favor</th>
+            <th scope="col">Goles en contra</th>
+            <th scope="col">Goles de diferencia</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let p of table.table ; let i = index">
+          <ng-container *ngIf="p.teamid == team.idTeam; then teamC; else notTeam">
+          </ng-container>
+          <ng-template #teamC>
+            <tr class="table-warning">
+              <th scope="row">{{i+1}}</th>
+              <th>{{p.name}}</th>
+              <th>{{p.played}}</th>
+              <th>{{p.win}}</th>
+              <th>{{p.draw}}</th>
+              <th>{{p.lost}}</th>
+              <th>{{p.goalsfor}}</th>
+              <th>{{p.goalsagainst}}</th>
+              <th>{{p.goalsdifference}}</th>
+              <th>{{p.total}}</th>
+            </tr>
+          </ng-template>
+          <ng-template #notTeam>
+            <tr>
+              <th scope="row">{{i+1}}</th>
+              <td>{{p.name}}</td>
+              <td>{{p.played}}</td>
+              <td>{{p.win}}</td>
+              <td>{{p.draw}}</td>
+              <td>{{p.lost}}</td>
+              <td>{{p.goalsfor}}</td>
+              <td>{{p.goalsagainst}}</td>
+              <td>{{p.goalsdifference}}</td>
+              <td>{{p.total}}</td>
+            </tr>
+          </ng-template>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
